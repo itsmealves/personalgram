@@ -1,0 +1,14 @@
+syntax = "proto3";
+package personalgram.sync;
+
+service Sync {
+	rpc storeFrame(StoreRequest) returns (StoreResponse);
+}
+
+message StoreRequest {
+	bytes frame = 1;
+}
+
+message StoreResponse {
+	bool success = 1;
+}
