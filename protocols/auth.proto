@@ -3,7 +3,7 @@ package personalgram.auth;
 
 import "google/protobuf/empty.proto";
 
-service Camera {
+service Auth {
 	rpc login(AuthRequest) returns (AuthResponse);
 	rpc logout(google.protobuf.Empty) returns (AuthResponse);
 	rpc currentUser(google.protobuf.Empty) returns (AuthResponse);

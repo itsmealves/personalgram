@@ -1,12 +1,15 @@
 syntax = "proto3";
 package personalgram.camera;
 
-import "google/protobuf/empty.proto";
 
 service Camera {
-	rpc getFrame(google.protobuf.Empty) returns (FrameResponse);
+	rpc getFrame(FrameRequest) returns (FrameResponse);
 }
 
+
+message FrameRequest {
+	
+}
 
 message FrameResponse {
 	bytes data = 1;

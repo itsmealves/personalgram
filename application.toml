@@ -1,0 +1,20 @@
+[package]
+	[package.api]
+	dependencies = ["camera", "sync", "auth"]
+	description = "Personalgram API"
+
+	[package.auth]
+	type = "python"
+	dependencies = []
+	description = "User authentication service"
+
+	[package.camera]
+	type = "python"
+	dependencies = []
+	description = "Camera handler service"
+
+	[package.sync]
+	type = "python"
+	dependencies = ["auth"]
+	description = "Service to sync data from client to server"
+

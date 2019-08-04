@@ -1,4 +1,5 @@
-import yaml
+import toml
+import json
 
 
 class Settings(object):
@@ -27,10 +28,12 @@ class Settings(object):
 			self.__settings = settings
 			return
 
-		with open(settings, 'r+') as settings_file:
-			self.__settings = yaml.load(settings_file, Loader=yaml.Loader)
+		self.__settings = toml.load(settings)
 
 	def __getattr__(self, name):
+		if name not in self.__settings:
+			return None
+
 		target = self.__settings[name]
 
 		if type(target) is dict:
