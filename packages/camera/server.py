@@ -1,10 +1,14 @@
+import os
 import grpc
 import time
+import dotenv
 from concurrent import futures
 
 from stream import Stream
 from protocols.camera_pb2 import *
 from protocols.camera_pb2_grpc import *
+
+dotenv.load_dotenv()
 
 
 class CameraService(CameraServicer):
@@ -12,14 +16,15 @@ class CameraService(CameraServicer):
 		self.__stream = Stream.get_instance()
 
 	def getFrame(self, request, context):
-		data = self.__stream.read_bytes()
-		return FrameResponse(data=data)
+		data, extension = self.__stream.read_bytes()
+		return FrameResponse(data=data, type=extension)
 
 
 if __name__ == '__main__':
+    port = os.environ.get('CAMERA_PORT')
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     add_CameraServicer_to_server(CameraService(), server)
-    server.add_insecure_port('[::]:50051')
+    server.add_insecure_port('[::]:{}'.format(port))
     server.start()
 
     try:

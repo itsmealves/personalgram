@@ -13,4 +13,5 @@ message FrameRequest {
 
 message FrameResponse {
 	bytes data = 1;
+	string type = 2;
 }

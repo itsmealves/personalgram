@@ -1,12 +1,8 @@
-import grpc
-from protocols.camera_pb2 import *
-from protocols.camera_pb2_grpc import *
+import dotenv
+import falcon
+from resources import ResourceManager
 
+dotenv.load_dotenv()
 
-def run():
-    with grpc.insecure_channel('localhost:50051') as channel:
-        stub = CameraStub(channel)
-        response = stub.getFrame(FrameRequest())
-    
-if __name__ == '__main__':
-    run()
+api = falcon.API()
+ResourceManager.load_resources(api)

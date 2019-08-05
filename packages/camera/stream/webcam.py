@@ -24,8 +24,9 @@ class WebcamStream(StreamStrategy):
 		return frame
 
 	def read_bytes(self):
-		_, buf = cv2.imencode('.png', self.read())
-		return buf.tostring()
+		ext = '.png'
+		_, buf = cv2.imencode(ext, self.read())
+		return buf.tostring(), ext
 
 	def release(self):
 		self.__stopped = True

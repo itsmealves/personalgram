@@ -1,19 +1,25 @@
 [package]
 	[package.api]
+	port = 8080
+	type = "python"
+	available = false
 	dependencies = ["camera", "sync", "auth"]
 	description = "Personalgram API"
 
 	[package.auth]
+	port = 50052
 	type = "python"
 	dependencies = []
 	description = "User authentication service"
 
 	[package.camera]
+	port = 50051
 	type = "python"
 	dependencies = []
 	description = "Camera handler service"
 
 	[package.sync]
+	port = 50053
 	type = "python"
 	dependencies = ["auth"]
 	description = "Service to sync data from client to server"
