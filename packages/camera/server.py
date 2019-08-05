@@ -8,16 +8,22 @@ from stream import Stream
 from protocols.camera_pb2 import *
 from protocols.camera_pb2_grpc import *
 
+
 dotenv.load_dotenv()
 
 
 class CameraService(CameraServicer):
-	def __init__(self):
-		self.__stream = Stream.get_instance()
+    def __init__(self):
+        self.__stream = Stream.get_instance()
 
-	def getFrame(self, request, context):
-		data, extension = self.__stream.read_bytes()
-		return FrameResponse(data=data, type=extension)
+    def getFrame(self, request, context):
+        data, extension = self.__stream.read_bytes()
+        return FrameResponse(data=data, type=extension)
+
+    def getStream(self, request, context):
+        while True:
+            data, extension = self.__stream.read_bytes()
+            yield FrameResponse(data=data, type=extension)
 
 
 if __name__ == '__main__':

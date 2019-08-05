@@ -4,11 +4,16 @@ package personalgram.camera;
 
 service Camera {
 	rpc getFrame(FrameRequest) returns (FrameResponse);
+	rpc getStream(StreamRequest) returns (stream FrameResponse);
 }
 
 
 message FrameRequest {
 	
+}
+
+message StreamRequest {
+
 }
 
 message FrameResponse {

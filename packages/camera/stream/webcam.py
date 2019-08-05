@@ -9,7 +9,7 @@ class WebcamStream(StreamStrategy):
 		self.__stream.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 		self.__stream.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
-		self.__stream.read()
+		_, self.__frame = self.__stream.read()
 
 		self.__stopped = False
 		self.__thread = Thread(target=self.__update)
@@ -17,14 +17,13 @@ class WebcamStream(StreamStrategy):
 
 	def __update(self):
 		while not self.__stopped:
-			self.__stream.grab()
+			_, self.__frame = self.__stream.read()
 
 	def read(self):
-		_, frame = self.__stream.retrieve()
-		return frame
-
+		return self.__frame
+		
 	def read_bytes(self):
-		ext = '.png'
+		ext = '.jpg'
 		_, buf = cv2.imencode(ext, self.read())
 		return buf.tostring(), ext
 

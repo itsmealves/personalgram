@@ -13,4 +13,3 @@ class NoteResource(Resource):
 			f.write(frame_response.data)
 
 		response.body = 'OK'
-
